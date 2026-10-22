@@ -1,0 +1,116 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "Aurex cloud mining and copy trading user profile",
+      "properties": {
+        "id": { "type": "string" },
+        "telegramId": { "type": "number" },
+        "username": { "type": "string" },
+        "firstName": { "type": "string" },
+        "balance": { "type": "number" },
+        "coins": { "type": "number" },
+        "hashrateTH": { "type": "number" },
+        "referralCode": { "type": "string" },
+        "referralCount": { "type": "number" },
+        "referralEarnings": { "type": "number" },
+        "loginStreak": { "type": "number" },
+        "lastDailyLogin": { "type": "string" },
+        "isAdmin": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "balance", "coins"]
+    },
+    "investments": {
+      "title": "Mining Investment",
+      "description": "User cloud mining rig lease and yield contract",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "planId": { "type": "string" },
+        "planName": { "type": "string" },
+        "amount": { "type": "number" },
+        "dailyPercent": { "type": "number" },
+        "startDate": { "type": "string" },
+        "daysRemaining": { "type": "number" },
+        "totalEarned": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "userId", "amount", "status"]
+    },
+    "deposits": {
+      "title": "Deposit Request",
+      "description": "Cryptocurrency deposit verification request",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "network": { "type": "string" },
+        "amount": { "type": "number" },
+        "txHash": { "type": "string" },
+        "imageProof": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "amount", "status"]
+    },
+    "withdrawals": {
+      "title": "Withdrawal Request",
+      "description": "USDT cryptocurrency withdrawal transaction",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "network": { "type": "string" },
+        "walletAddress": { "type": "string" },
+        "amount": { "type": "number" },
+        "fee": { "type": "number" },
+        "netAmount": { "type": "number" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "amount", "status"]
+    },
+    "wallets": {
+      "title": "Platform Deposit Wallet",
+      "description": "Official company deposit addresses per crypto network",
+      "properties": {
+        "id": { "type": "string" },
+        "network": { "type": "string" },
+        "walletAddress": { "type": "string" },
+        "enabled": { "type": "boolean" },
+        "label": { "type": "string" }
+      },
+      "required": ["id", "network", "walletAddress"]
+    },
+    "copy_positions": {
+      "title": "Copy Trading Position",
+      "description": "User allocated stake copying an automated trader",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "traderId": { "type": "string" },
+        "amount": { "type": "number" },
+        "profitPercent": { "type": "number" },
+        "unclaimedProfit": { "type": "number" },
+        "status": { "type": "string" },
+        "startDate": { "type": "string" }
+      },
+      "required": ["id", "userId", "amount", "status"]
+    },
+    "transactions": {
+      "title": "Transaction Ledger",
+      "description": "Complete audit trail of balances, yields, and bonuses",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "type", "amount"]
+    }
+  }
+}

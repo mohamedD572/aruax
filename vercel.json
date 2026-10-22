@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "crons": [
+    {
+      "path": "/api/worker/run",
+      "schedule": "0 * * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!api/|assets/|banners/|favicon.ico).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
