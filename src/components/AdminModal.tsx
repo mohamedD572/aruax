@@ -31,6 +31,7 @@ interface AdminModalProps {
   user: UserProfile;
   deposits: DepositRequest[];
   withdrawals: WithdrawalRequest[];
+  onOpenFullDashboard?: () => void;
 }
 
 export const AdminModal: React.FC<AdminModalProps> = ({
@@ -39,6 +40,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
   user,
   deposits,
   withdrawals,
+  onOpenFullDashboard,
 }) => {
   const [activeTab, setActiveTab] = useState<
     'overview' | 'users' | 'deposits' | 'withdrawals' | 'wallets' | 'broadcast'
@@ -209,12 +211,23 @@ export const AdminModal: React.FC<AdminModalProps> = ({
               <p className="text-xs text-[#8B949E]">Manage users, deposit wallets, & requests</p>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-[#21262D] text-[#8B949E] hover:text-[#F0F6FC] transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            {onOpenFullDashboard && (
+              <button
+                type="button"
+                onClick={onOpenFullDashboard}
+                className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-[0_0_12px_rgba(212,175,55,0.3)] hover:scale-102 transition-transform cursor-pointer"
+              >
+                <span>Full Admin HQ</span>
+              </button>
+            )}
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-full hover:bg-[#21262D] text-[#8B949E] hover:text-[#F0F6FC] transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Action Feedback Banner */}

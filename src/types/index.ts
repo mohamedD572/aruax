@@ -11,7 +11,7 @@ export interface DepositWallet {
 
 export type TransactionStatus = 'Pending' | 'Approved' | 'Rejected' | 'Active' | 'Completed';
 
-export type LanguageCode = 'en' | 'ar' | 'es' | 'ru' | 'tr';
+export type LanguageCode = 'en' | 'ar' | 'fr' | 'es' | 'tr' | 'ru';
 
 export interface TelegramUser {
   id: number;
@@ -63,6 +63,7 @@ export interface InvestmentPlan {
   minAmount: number;
   maxAmount: number;
   dailyPercent: number; // e.g. 4.5, 6.0, 14.0
+  dailyCoinsRate?: number; // AUR coins mined daily (e.g. 80 AUR for $10 Starter)
   durationDays: number; // 25
   badge: string;
   color: string;
@@ -79,6 +80,8 @@ export interface Investment {
   planName: string;
   amount: number;
   dailyPercent: number;
+  dailyCoinsRate?: number;
+  minedCoinsClaimed?: number;
   dailyYieldUsdt: number;
   totalExpectedReturn: number;
   daysElapsed: number;

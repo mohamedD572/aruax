@@ -374,6 +374,47 @@ async function startServer() {
     });
   });
 
+  // GET & POST /api/telegram/verify-membership - Check if user is member of official Telegram channel
+  const handleVerifyMembership = async (req: express.Request, res: express.Response) => {
+    try {
+      const userId = req.query.userId || req.body?.userId;
+      const channel = (req.query.channel as string) || req.body?.channel || "@AurexOfficial";
+      const token = getBotToken();
+
+      if (!token) {
+        return res.json({ success: true, verified: true, reason: "bot_token_not_configured" });
+      }
+
+      if (!userId) {
+        return res.status(400).json({ success: false, error: "Missing userId" });
+      }
+
+      const tgUrl = `https://api.telegram.org/bot${token}/getChatMember?chat_id=${encodeURIComponent(
+        channel
+      )}&user_id=${encodeURIComponent(String(userId))}`;
+
+      const response = await fetch(tgUrl);
+      const data = await response.json();
+
+      if (data.ok && ["creator", "administrator", "member", "restricted"].includes(data.result?.status)) {
+        return res.json({ success: true, verified: true, status: data.result.status });
+      }
+
+      return res.json({
+        success: true,
+        verified: false,
+        status: data.result?.status || "unknown",
+        telegramResponse: data,
+      });
+    } catch (err: any) {
+      console.warn("Error verifying Telegram membership:", err);
+      return res.json({ success: true, verified: true, error: err.message });
+    }
+  };
+
+  app.get("/api/telegram/verify-membership", handleVerifyMembership);
+  app.post("/api/telegram/verify-membership", handleVerifyMembership);
+
   // POST /api/telegram/webhook - Telegram Bot Updates Handler
   app.post("/api/telegram/webhook", async (req, res) => {
     try {

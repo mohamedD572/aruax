@@ -17,75 +17,94 @@ export const AurexTokenLogo: React.FC<AurexTokenLogoProps> = ({ className = '', 
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="drop-shadow-[0_0_12px_rgba(16,185,129,0.45)]"
+        className="drop-shadow-[0_0_14px_rgba(212,175,55,0.55)]"
       >
         <defs>
-          {/* Outer Gold Bevel Gradient */}
-          <linearGradient id="goldRimGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FDE047" />
-            <stop offset="35%" stopColor="#D97706" />
-            <stop offset="70%" stopColor="#F59E0B" />
+          {/* Metallic Gold Rim Gradient */}
+          <linearGradient id="aurGoldRim" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFF2A3" />
+            <stop offset="25%" stopColor="#D4AF37" />
+            <stop offset="50%" stopColor="#F59E0B" />
+            <stop offset="75%" stopColor="#92400E" />
+            <stop offset="100%" stopColor="#FDE047" />
+          </linearGradient>
+
+          {/* Deep Obsidian Black Coin Face */}
+          <radialGradient id="aurObsidianFace" cx="50%" cy="35%" r="65%">
+            <stop offset="0%" stopColor="#1A2130" />
+            <stop offset="60%" stopColor="#0B0E14" />
+            <stop offset="100%" stopColor="#05070B" />
+          </radialGradient>
+
+          {/* Golden Letter A Emblem 3D Gradient */}
+          <linearGradient id="aurGoldEmblem" x1="20%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%" stopColor="#FFFBEB" />
+            <stop offset="20%" stopColor="#FDE047" />
+            <stop offset="55%" stopColor="#D4AF37" />
+            <stop offset="85%" stopColor="#B45309" />
             <stop offset="100%" stopColor="#78350F" />
           </linearGradient>
 
-          {/* Inner Dark Emerald Metallic Face */}
-          <radialGradient id="emeraldFaceGradient" cx="50%" cy="30%" r="70%">
-            <stop offset="0%" stopColor="#065F46" />
-            <stop offset="50%" stopColor="#022C22" />
-            <stop offset="100%" stopColor="#020617" />
+          {/* Gloss Specular Light Reflection */}
+          <linearGradient id="aurGlossOverlay" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
+            <stop offset="35%" stopColor="#FFFFFF" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#000000" stopOpacity="0.3" />
+          </linearGradient>
+
+          {/* Outer Coin Edge Serrations / Ridges */}
+          <radialGradient id="aurEdgeRidge" cx="50%" cy="50%" r="50%">
+            <stop offset="90%" stopColor="#F59E0B" />
+            <stop offset="96%" stopColor="#FFF2A3" />
+            <stop offset="100%" stopColor="#78350F" />
           </radialGradient>
 
-          {/* Golden Letter A Gradient */}
-          <linearGradient id="goldEmblemGradient" x1="20%" y1="0%" x2="80%" y2="100%">
-            <stop offset="0%" stopColor="#FEF08A" />
-            <stop offset="40%" stopColor="#F59E0B" />
-            <stop offset="80%" stopColor="#B45309" />
-            <stop offset="100%" stopColor="#34D399" />
-          </linearGradient>
-
-          {/* Specular Gloss Overlay */}
-          <linearGradient id="glossOverlay" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.35" />
-            <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0.05" />
-            <stop offset="100%" stopColor="#000000" stopOpacity="0.4" />
-          </linearGradient>
-
-          <filter id="emeraldGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
+          <filter id="aurGoldGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
 
-        {/* Outer Gold Metallic Ring */}
-        <circle cx="50" cy="50" r="48" fill="url(#goldRimGradient)" />
-        <circle cx="50" cy="50" r="43" fill="#090D16" />
+        {/* Outer Serrated Coin Rim */}
+        <circle cx="50" cy="50" r="49" fill="url(#aurGoldRim)" />
+        <circle cx="50" cy="50" r="46.5" fill="#05070B" />
+        <circle cx="50" cy="50" r="44.5" fill="url(#aurGoldRim)" />
 
-        {/* Inner Emerald Coin Face */}
-        <circle cx="50" cy="50" r="41" fill="url(#emeraldFaceGradient)" />
+        {/* Deep Obsidian Coin Center Face */}
+        <circle cx="50" cy="50" r="41.5" fill="url(#aurObsidianFace)" />
 
-        {/* Inner Gold Beaded Border Line */}
-        <circle cx="50" cy="50" r="38" stroke="url(#goldRimGradient)" strokeWidth="1.2" strokeDasharray="3 2" opacity="0.85" />
+        {/* Inner Beaded Luxury Ring */}
+        <circle
+          cx="50"
+          cy="50"
+          r="38"
+          stroke="url(#aurGoldRim)"
+          strokeWidth="1.2"
+          strokeDasharray="2.5 2"
+          opacity="0.8"
+        />
 
-        {/* Stylized Futuristic Letter 'A' Emblem */}
-        <g filter="url(#emeraldGlow)">
-          {/* Main Peak Body of A */}
+        {/* Golden AUREX "A" Monogram */}
+        <g filter="url(#aurGoldGlow)">
+          {/* Main Triangular Peak Body */}
           <path
-            d="M50 18 L22 75 H34 L42 58 H58 L66 75 H78 L50 18 Z M50 32 L54.5 48 H45.5 L50 32 Z"
-            fill="url(#goldEmblemGradient)"
+            d="M50 17 L21 76 H33 L42 58 H58 L67 76 H79 L50 17 Z M50 31 L54.5 48 H45.5 L50 31 Z"
+            fill="url(#aurGoldEmblem)"
           />
-          {/* Emerald Center Core Crystal Accent */}
-          <polygon points="50,35 53,45 47,45" fill="#34D399" />
-          {/* Futuristic Horizontal Bar Cut Accent */}
-          <rect x="36" y="52" width="28" height="4" rx="2" fill="#10B981" opacity="0.9" />
+
+          {/* Diamond Core Gem in Center */}
+          <polygon points="50,33 54,44 50,47 46,44" fill="#FFF9D2" />
+
+          {/* Precision Horizontal High-Tech Bridge */}
+          <rect x="36" y="52" width="28" height="3.5" rx="1.75" fill="#FDE047" />
         </g>
 
-        {/* Gloss Curved Specular Light Reflection */}
+        {/* Diagonal Specular Reflection Sweep */}
         <path
-          d="M12 40 C 20 20, 50 12, 80 20 C 65 14, 30 18, 12 40 Z"
-          fill="url(#glossOverlay)"
+          d="M12 40 C 20 18, 55 12, 85 22 C 68 15, 30 18, 12 40 Z"
+          fill="url(#aurGlossOverlay)"
         />
       </svg>
     </div>
   );
 };
-

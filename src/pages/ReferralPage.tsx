@@ -148,30 +148,30 @@ export const ReferralPage: React.FC<ReferralPageProps> = ({
               <h1 className="text-xl font-black text-slate-100 tracking-tight flex items-center gap-2 font-mono">
                 <span>Referral Program</span>
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-400 border border-amber-500/30">
-                  15% COMMISSION
+                  3-TIER SUSTAINABLE
                 </span>
               </h1>
               <p className="text-xs text-slate-400 mt-0.5">
-                Earn 15% instant commissions + milestone rewards on all invited deposits
+                Earn 7% (Tier 1) + 3% (Tier 2) + 1% (Tier 3) commissions + 50 AUR first deposit bonus
               </p>
             </div>
           </div>
         </div>
 
-        {/* 15% Referral Rate Banner */}
-        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-950/80 via-slate-900 to-emerald-950/80 border border-emerald-500/40 flex items-center justify-between font-mono">
-          <div className="flex items-center space-x-2.5">
-            <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-              <Percent className="w-5 h-5 stroke-[2.5]" />
-            </div>
-            <div>
-              <span className="text-[10px] text-slate-400 block uppercase font-sans font-bold">Commission Rate</span>
-              <span className="text-sm font-black text-emerald-400">15% Direct Referral Cashback</span>
-            </div>
+        {/* 3-Tier Multi-Level Commission Structure */}
+        <div className="grid grid-cols-3 gap-2 font-mono">
+          <div className="p-2.5 rounded-xl bg-[#141A29] border border-amber-500/40 text-center space-y-0.5">
+            <span className="text-[9px] text-amber-300 block uppercase font-bold">Tier 1 Direct</span>
+            <span className="text-sm font-black text-amber-400">7% Commission</span>
           </div>
-          <span className="px-3 py-1 rounded-xl bg-emerald-500 text-slate-950 font-black text-xs uppercase shadow-[0_0_10px_rgba(16,185,129,0.4)]">
-            Instant Credit
-          </span>
+          <div className="p-2.5 rounded-xl bg-[#141A29] border border-amber-500/30 text-center space-y-0.5">
+            <span className="text-[9px] text-slate-400 block uppercase font-bold">Tier 2 Network</span>
+            <span className="text-sm font-black text-yellow-300">3% Commission</span>
+          </div>
+          <div className="p-2.5 rounded-xl bg-[#141A29] border border-amber-500/20 text-center space-y-0.5">
+            <span className="text-[9px] text-slate-400 block uppercase font-bold">Tier 3 Network</span>
+            <span className="text-sm font-black text-slate-200">1% Commission</span>
+          </div>
         </div>
 
         {/* Key Statistics Grid */}

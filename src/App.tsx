@@ -48,6 +48,7 @@ import { TelegramIntegrationModal } from './components/TelegramIntegrationModal'
 import { SwapModal } from './components/SwapModal';
 import { EquipmentDiagnosticsModal } from './components/EquipmentDiagnosticsModal';
 import { PushNotificationToast } from './components/PushNotificationToast';
+import { SubscriptionGateModal } from './components/SubscriptionGateModal';
 
 // Store, Auth, Translations & Utils
 import { store } from './services/store';
@@ -56,14 +57,15 @@ import { TelegramService } from './services/telegram';
 import { soundService } from './services/soundService';
 import { REFERRAL_MILESTONES } from './data/initialData';
 import { getMinerRank } from './utils/minerRank';
-import { getTranslation } from './services/i18n';
+import { getTranslation, applyLanguageDirection } from './services/i18n';
 import { UserProfile, Investment, LanguageCode } from './types';
 
 export default function App() {
   const [, setTick] = useState(0);
   const [activeTab, setActiveTab] = useState<AurexTab>('invest');
   const [showSplash, setShowSplash] = useState(true);
-  const [currentLang, setCurrentLang] = useState<LanguageCode>('en');
+  const [currentLang, setCurrentLang] = useState<LanguageCode>('ar');
+  const [isGateOpen, setIsGateOpen] = useState(false);
 
   // Modals state
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -82,8 +84,9 @@ export default function App() {
     });
 
     // Check language from store or localStorage
-    const savedLang = (localStorage.getItem('aurex_lang') as LanguageCode) || 'en';
+    const savedLang = (localStorage.getItem('aurex_lang') as LanguageCode) || 'ar';
     setCurrentLang(savedLang);
+    applyLanguageDirection(savedLang);
 
     // Initialize Telegram WebApp SDK and Silent Auth
     authService.initAuth((profile) => {
@@ -116,11 +119,20 @@ export default function App() {
   const handleSelectLang = (lang: LanguageCode) => {
     setCurrentLang(lang);
     localStorage.setItem('aurex_lang', lang);
+    applyLanguageDirection(lang);
   };
 
   const handleTabChange = (tab: AurexTab) => {
     setActiveTab(tab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+    const storageKey = `aurex_gate_verified_${user.telegramId || user.id || 'default'}`;
+    if (localStorage.getItem(storageKey) !== 'true') {
+      setIsGateOpen(true);
+    }
   };
 
   // If user is viewing full Admin Dashboard
@@ -137,14 +149,22 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#06080F] text-[#F0F6FC] font-sans flex flex-col selection:bg-emerald-500/30 selection:text-emerald-300">
+    <div className="min-h-screen bg-[#05070B] text-[#F0F6FC] font-sans flex flex-col selection:bg-amber-500/30 selection:text-amber-300">
       {/* 1. Aurex Luxury Startup Splash Screen */}
       {showSplash && (
         <AurexSplashScreen
-          onComplete={() => setShowSplash(false)}
+          onComplete={handleSplashComplete}
           durationMs={2200}
         />
       )}
+
+      {/* 1b. Mandatory Subscription Gate Screen */}
+      <SubscriptionGateModal
+        isOpen={isGateOpen}
+        user={user}
+        currentLang={currentLang}
+        onVerified={() => setIsGateOpen(false)}
+      />
 
       {/* 2. Top Header / Navbar */}
       <Navbar
@@ -173,12 +193,12 @@ export default function App() {
       />
 
       {/* 3. Global Financial Command Ribbon & Balance Bar */}
-      <section className="bg-gradient-to-b from-[#090D16] to-[#06080F] border-b border-emerald-950/30 px-3.5 pt-3 pb-3">
+      <section className="bg-gradient-to-b from-[#0B0E17] to-[#05070B] border-b border-amber-500/20 px-3.5 pt-3 pb-3">
         <div className="max-w-4xl mx-auto space-y-3">
           {/* Main Balance Display */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3.5 rounded-2xl bg-[#0B0F1A]/90 border border-slate-800/90 shadow-[0_4px_25px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3.5 rounded-2xl bg-[#0C1019] border border-amber-500/25 shadow-[0_4px_25px_rgba(0,0,0,0.6)] backdrop-blur-xl">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-emerald-500/20 to-teal-400/10 border border-emerald-500/30 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+              <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-amber-500/25 to-yellow-400/10 border border-amber-500/40 text-amber-400 shadow-[0_0_15px_rgba(212,175,55,0.25)]">
                 <Wallet className="w-6 h-6" />
               </div>
               <div>
@@ -186,8 +206,8 @@ export default function App() {
                   <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-mono">
                     {t.balance || 'Available Balance'}
                   </span>
-                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-black bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-black bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
                     USDT
                   </span>
                 </div>
@@ -213,8 +233,8 @@ export default function App() {
                 }}
                 className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
                   activeTab === 'deposit'
-                    ? 'bg-emerald-400 text-slate-950 shadow-[0_0_15px_rgba(16,185,129,0.4)] scale-102'
-                    : 'bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/30'
+                    ? 'btn-gold-primary scale-102'
+                    : 'bg-[#141A29] text-amber-300 hover:bg-amber-500/20 border border-amber-500/30'
                 }`}
               >
                 <ArrowDownLeft className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -230,7 +250,7 @@ export default function App() {
                 className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
                   activeTab === 'withdraw'
                     ? 'bg-amber-400 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.4)] scale-102'
-                    : 'bg-amber-500/15 text-amber-400 hover:bg-amber-500/25 border border-amber-500/30'
+                    : 'bg-[#141A29] text-slate-300 hover:text-amber-300 hover:bg-amber-500/15 border border-slate-700/80'
                 }`}
               >
                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -242,7 +262,7 @@ export default function App() {
                   soundService.playClick();
                   setIsSwapOpen(true);
                 }}
-                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-200 hover:text-white border border-slate-700/80 hover:border-emerald-500/40 transition-all cursor-pointer"
+                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#141A29] text-slate-200 hover:text-white border border-amber-500/30 hover:border-amber-400 transition-all cursor-pointer"
                 title="Swap USDT & AUR Coins"
               >
                 <Coins className="w-3.5 h-3.5 text-amber-400" />
@@ -254,7 +274,7 @@ export default function App() {
                   soundService.playClick();
                   setIsCheckinOpen(true);
                 }}
-                className="flex items-center justify-center gap-1 px-3 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 text-amber-300 hover:bg-amber-500/30 transition-all cursor-pointer shadow-sm"
+                className="flex items-center justify-center gap-1 px-3 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500/20 to-yellow-500/20 border border-amber-500/40 text-amber-300 hover:bg-amber-500/30 transition-all cursor-pointer shadow-sm"
                 title="Daily Login Rewards"
               >
                 <Gift className="w-3.5 h-3.5 text-amber-400" />
@@ -422,6 +442,10 @@ export default function App() {
         user={user}
         deposits={deposits}
         withdrawals={withdrawals}
+        onOpenFullDashboard={() => {
+          setIsAdminOpen(false);
+          setIsAdminDashboardMode(true);
+        }}
       />
 
       {/* 24/7 VIP Customer Support Chat */}

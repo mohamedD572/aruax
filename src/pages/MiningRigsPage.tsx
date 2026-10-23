@@ -139,8 +139,8 @@ export const MiningRigsPage: React.FC<MiningRigsPageProps> = ({
   return (
     <div className="space-y-4 pb-24 animate-in fade-in duration-300 select-none font-mono">
       {/* Header Bar */}
-      <div className="flex items-center justify-between bg-slate-950/90 border border-emerald-500/30 p-3.5 rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.15)]">
-        <div className="flex items-center space-x-2.5">
+      <div className="flex items-center justify-between bg-[#0C1019] border border-amber-500/30 p-3.5 rounded-2xl shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+        <div className="flex items-center space-x-2.5 rtl:space-x-reverse">
           {onBack && (
             <button
               onClick={() => {
@@ -148,19 +148,22 @@ export const MiningRigsPage: React.FC<MiningRigsPageProps> = ({
                 TelegramService.hapticImpact('light');
                 onBack();
               }}
-              className="p-1.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white"
+              className="p-1.5 rounded-xl bg-[#141A29] border border-slate-700 text-slate-300 hover:text-white cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
           )}
-          <div className="p-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+          <div className="p-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
             <Cpu className="w-5 h-5 stroke-[2.5]" />
           </div>
           <div>
             <h2 className="text-base font-black text-slate-100 uppercase tracking-tight flex items-center gap-2">
-              My Mining Rigs
+              <span>My Mining Rigs</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                AUR + USDT
+              </span>
             </h2>
-            <p className="text-[10px] text-slate-400 font-medium">Real-Time USDT Cloud Hardware</p>
+            <p className="text-[10px] text-slate-400 font-medium">Real-Time Cloud Hardware Accrual</p>
           </div>
         </div>
 
@@ -170,7 +173,7 @@ export const MiningRigsPage: React.FC<MiningRigsPageProps> = ({
             TelegramService.hapticImpact('medium');
             if (onNavigateInvest) onNavigateInvest();
           }}
-          className="px-3 py-1.5 rounded-xl bg-slate-950 border border-emerald-500 text-emerald-400 font-black text-xs uppercase flex items-center gap-1 shadow-[0_0_12px_rgba(16,185,129,0.3)] active:scale-95 transition-all hover:bg-emerald-500/10 cursor-pointer"
+          className="px-3 py-1.5 rounded-xl btn-gold-primary text-xs uppercase flex items-center gap-1 active:scale-95 transition-all cursor-pointer"
         >
           <PlusCircle className="w-3.5 h-3.5 stroke-[2.5]" />
           <span>Rent Rig</span>
@@ -179,20 +182,20 @@ export const MiningRigsPage: React.FC<MiningRigsPageProps> = ({
 
       {/* Global Mining Overview */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-        <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+        <div className="p-3 rounded-2xl bg-[#0C1019] border border-amber-500/20 space-y-1">
           <div className="flex items-center justify-between text-slate-400 text-[10px]">
             <span>Active Machines</span>
-            <Server className="w-3.5 h-3.5 text-emerald-400" />
+            <Server className="w-3.5 h-3.5 text-amber-400" />
           </div>
           <p className="text-lg font-black text-slate-100">
             {activeRigs.length}
           </p>
-          <span className="text-[9px] text-emerald-400 font-bold">
+          <span className="text-[9px] text-amber-400 font-bold">
             {investments.length} Total Purchased
           </span>
         </div>
 
-        <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+        <div className="p-3 rounded-2xl bg-[#0C1019] border border-amber-500/20 space-y-1">
           <div className="flex items-center justify-between text-slate-400 text-[10px]">
             <span>Total Hashrate</span>
             <Zap className="w-3.5 h-3.5 text-amber-400" />
@@ -205,7 +208,7 @@ export const MiningRigsPage: React.FC<MiningRigsPageProps> = ({
           </span>
         </div>
 
-        <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+        <div className="p-3 rounded-2xl bg-[#0C1019] border border-amber-500/20 space-y-1">
           <div className="flex items-center justify-between text-slate-400 text-[10px]">
             <span>Daily Profit</span>
             <Activity className="w-3.5 h-3.5 text-emerald-400" />
@@ -213,18 +216,20 @@ export const MiningRigsPage: React.FC<MiningRigsPageProps> = ({
           <p className="text-lg font-black text-emerald-400">
             +${totalDailyUsdt.toFixed(2)} USDT
           </p>
-          <span className="text-[9px] text-emerald-400 font-bold">USDT Wallet Credited</span>
+          <span className="text-[9px] text-yellow-300 font-bold">
+            +{activeRigs.reduce((acc, i) => acc + (i.dailyCoinsRate || 80), 0)} AUR / day
+          </span>
         </div>
 
-        <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+        <div className="p-3 rounded-2xl bg-[#0C1019] border border-amber-500/20 space-y-1">
           <div className="flex items-center justify-between text-slate-400 text-[10px]">
-            <span>Total USDT Earned</span>
-            <BarChart2 className="w-3.5 h-3.5 text-sky-400" />
+            <span>AUR Coins Balance</span>
+            <BarChart2 className="w-3.5 h-3.5 text-amber-400" />
           </div>
-          <p className="text-lg font-black text-slate-100">
-            ${totalEarnedOverall.toFixed(2)} USDT
+          <p className="text-lg font-black text-amber-300">
+            {user.coins.toLocaleString()} AUR
           </p>
-          <span className="text-[9px] text-sky-400 font-bold">Lifetime Total</span>
+          <span className="text-[9px] text-amber-400 font-bold">In-App Token Balance</span>
         </div>
       </div>
 

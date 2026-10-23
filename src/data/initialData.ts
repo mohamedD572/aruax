@@ -11,13 +11,14 @@ export const INVESTMENT_PLANS: InvestmentPlan[] = [
     minAmount: 10,
     maxAmount: 49,
     dailyPercent: 2.3,
+    dailyCoinsRate: 80, // Produces 80 AUR Coins / day for $10
     durationDays: 30,
     badge: 'Starter ($10 Min)',
     color: '#10B981',
     metalTheme: 'bronze',
     metalGradient: 'from-emerald-500/25 via-teal-500/15 to-emerald-900/25',
     rigImage: '/src/assets/images/copper_gpu_rig_1785271096149.jpg',
-    description: 'Entry-level compact GPU mining rig starting from $10 USDT. Generates 2.3% daily profit for 30 days.'
+    description: 'Entry-level compact GPU mining rig starting from $10 USDT. Generates 2.3% daily profit and 80 AUR coins/day for 30 days.'
   },
   {
     id: 'advanced',
@@ -29,13 +30,14 @@ export const INVESTMENT_PLANS: InvestmentPlan[] = [
     minAmount: 10,
     maxAmount: 49,
     dailyPercent: 5.0,
+    dailyCoinsRate: 220, // Produces 220 AUR Coins / day
     durationDays: 30,
     badge: 'Advanced ($10 Min)',
     color: '#F59E0B',
     metalTheme: 'gold',
     metalGradient: 'from-amber-400/25 via-yellow-500/15 to-amber-800/25',
     rigImage: '/src/assets/images/bronze_asic_blade_1785271108363.jpg',
-    description: 'High-efficiency ASIC blade rig starting from $10 USDT. Generates 5.0% daily profit for 30 days.'
+    description: 'High-efficiency ASIC blade rig starting from $10 USDT. Generates 5.0% daily profit and 220 AUR coins/day for 30 days.'
   },
   {
     id: 'pro',
@@ -47,13 +49,14 @@ export const INVESTMENT_PLANS: InvestmentPlan[] = [
     minAmount: 50,
     maxAmount: 199,
     dailyPercent: 6.5,
+    dailyCoinsRate: 500, // Produces 500 AUR Coins / day
     durationDays: 30,
     badge: 'Pro Server ($50 Min)',
     color: '#38BDF8',
     metalTheme: 'steel',
     metalGradient: 'from-sky-400/25 via-blue-500/15 to-slate-800/25',
     rigImage: '/src/assets/images/steel_hash_server_1785271119463.jpg',
-    description: 'Industrial steel hash server providing 6.5% daily mining returns for 30 days.'
+    description: 'Industrial steel hash server providing 6.5% daily mining returns and 500 AUR coins/day for 30 days.'
   },
   {
     id: 'silver',
@@ -65,13 +68,14 @@ export const INVESTMENT_PLANS: InvestmentPlan[] = [
     minAmount: 200,
     maxAmount: 999,
     dailyPercent: 8.0,
+    dailyCoinsRate: 2400, // Produces 2,400 AUR Coins / day
     durationDays: 30,
     badge: 'Silver Rack ($200 Min)',
     color: '#94A3B8',
     metalTheme: 'titanium',
     metalGradient: 'from-slate-300/25 via-slate-400/15 to-slate-700/25',
     rigImage: '/src/assets/images/silver_cyber_rack_1785271129179.jpg',
-    description: 'High-speed silver server rack cluster yielding 8.0% daily profit for 30 days.'
+    description: 'High-speed silver server rack cluster yielding 8.0% daily profit and 2,400 AUR coins/day for 30 days.'
   },
   {
     id: 'gold',
@@ -83,13 +87,14 @@ export const INVESTMENT_PLANS: InvestmentPlan[] = [
     minAmount: 1000,
     maxAmount: 4999,
     dailyPercent: 10.0,
+    dailyCoinsRate: 14000, // Produces 14,000 AUR Coins / day
     durationDays: 30,
     badge: 'Gold Edition ($1k Min)',
     color: '#EAB308',
     metalTheme: 'gold',
     metalGradient: 'from-amber-400/30 via-yellow-400/20 to-amber-700/25',
     rigImage: '/src/assets/images/gold_mining_rig_1785271138710.jpg',
-    description: 'Heavy gold-plated industrial mining rig earning 10.0% daily yield for 30 days.'
+    description: 'Heavy gold-plated industrial mining rig earning 10.0% daily yield and 14,000 AUR coins/day for 30 days.'
   },
   {
     id: 'platinum',
@@ -101,13 +106,14 @@ export const INVESTMENT_PLANS: InvestmentPlan[] = [
     minAmount: 5000,
     maxAmount: 14999,
     dailyPercent: 12.5,
+    dailyCoinsRate: 80000, // Produces 80,000 AUR Coins / day
     durationDays: 30,
     badge: 'Platinum ($5k Min)',
     color: '#A855F7',
     metalTheme: 'platinum',
     metalGradient: 'from-purple-400/30 via-indigo-500/20 to-slate-800/30',
     rigImage: '/src/assets/images/platinum_datacenter_1785271148443.jpg',
-    description: 'Ultra-scale platinum cloud datacenter generating 12.5% daily mining returns for 30 days.'
+    description: 'Ultra-scale platinum cloud datacenter generating 12.5% daily mining returns and 80,000 AUR coins/day for 30 days.'
   },
   {
     id: 'diamond',
@@ -119,13 +125,14 @@ export const INVESTMENT_PLANS: InvestmentPlan[] = [
     minAmount: 15000,
     maxAmount: 100000,
     dailyPercent: 15.0,
+    dailyCoinsRate: 280000, // Produces 280,000 AUR Coins / day
     durationDays: 30,
     badge: 'Diamond ($15k Min)',
     color: '#EC4899',
     metalTheme: 'quantum',
     metalGradient: 'from-pink-500/30 via-cyan-400/25 to-purple-800/30',
     rigImage: '/src/assets/images/diamond_quantum_rig_1785271159012.jpg',
-    description: 'Next-gen quantum mining supercomputer delivering 15.0% daily return for 30 days.'
+    description: 'Next-gen quantum mining supercomputer delivering 15.0% daily return and 280,000 AUR coins/day for 30 days.'
   }
 ];
 
@@ -252,9 +259,9 @@ export const REFERRAL_MILESTONES: ReferralMilestone[] = [
 
 export const INITIAL_SETTINGS: AppSettings = {
   botToken: '',
-  botUsername: '@SMSVaultBot',
+  botUsername: '@AurexOneBot',
   miniAppUrl: '',
-  supportUsername: '@smsvault_support',
+  supportUsername: '@aurex_support',
   trc20Address: 'TAUREX_USDT_TRC20_OfficialPlatformDepositAddress',
   bep20Address: '0xAUREX_USDT_BEP20_OfficialPlatformDepositAddress',
   tonAddress: 'EQAUREX_USDT_TON_OfficialPlatformDepositAddress',
